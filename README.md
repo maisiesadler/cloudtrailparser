@@ -11,3 +11,15 @@ Clone the repo, update the config to the required values
 `go run . > IamPolicies.yml`
 
 The policies can then be copied into a CloudFormation template.
+
+## Example Output
+
+```
+- PolicyName: ManageS3
+  PolicyDocument:
+    Statement:
+    - Effect: Allow
+    Action:
+      - 's3:CreateBucket'
+      - 's3:DeleteBucket'
+```
