@@ -35,24 +35,32 @@ It will generate something like the below that can then be used for the final IA
 
 ## To run
 
+Set environment variables
+
+| Name | Value |
+| -- | -- |
+| `USERNAME` | Username of IAM user |
+| `START_DATE` | Time to start looking from in the format `"2021-03-22 16:15:57 UTC+00:00"` |
+| `END_DATE` | Time to finish looking from in the format `"2021-03-22 16:15:57 UTC+00:00"` |
+
 ### Using go
 
-Clone the repo, update the config to the required values
+Clone the repo
 
 `go run . > IamPolicies.yml`
 
-#### Prerequisites
+#### Prerequisites
 
 - Golang
 
 ### Using docker
 
-Clone the repo, update the config to the required values
+Clone the repo
 
 `docker build -t cloudtrailparser .`
 
-`docker run -v ~/.aws:/root/.aws cloudtrailparser`
+`docker run --env USERNAME="iam.user" --env START_DATE="2021-03-23 11:15:57 UTC+00:00" --env END_DATE="2021-03-23 17:15:57 UTC+00:00" -v ~/.aws:/root/.aws cloudtrailparser`
 
-#### Prerequisites
+#### Prerequisites
 
 - Docker
