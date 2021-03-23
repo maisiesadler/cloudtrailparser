@@ -1,18 +1,27 @@
 # CloudTrail Parser
 
+To be used when creating a new IAM Role with lowest needed permissions.
+
 Gets all CloudTrail Events for a User and creates an IAM policy for each event that has happened.
 
-This means you can create IAM roles with higher privilige, run a deployment/tool. Then use this tool to generate a policy with just the required permissions.
+## How to use
 
-## To run
+Create a user with higher permissions than required
 
-Clone the repo, update the config to the required values
+```
+- PolicyName: ManageS3
+  PolicyDocument:
+    Statement:
+    - Effect: Allow
+    Action:
+      - 's3:*'
+```
 
-`go run . > IamPolicies.yml`
+Run the tool that needs to use the IAM role, for example a deployment.
 
-The policies can then be copied into a CloudFormation template.
+Wait until the Events are available in TeamCity, then run this tool.
 
-## Example Output
+It will generate something like the below that can then be used for the final IAM user.
 
 ```
 - PolicyName: ManageS3
@@ -23,3 +32,9 @@ The policies can then be copied into a CloudFormation template.
       - 's3:CreateBucket'
       - 's3:DeleteBucket'
 ```
+
+## To run
+
+Clone the repo, update the config to the required values
+
+`go run . > IamPolicies.yml`
