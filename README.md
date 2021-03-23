@@ -35,6 +35,24 @@ It will generate something like the below that can then be used for the final IA
 
 ## To run
 
+### Using go
+
 Clone the repo, update the config to the required values
 
 `go run . > IamPolicies.yml`
+
+#### Prerequisites
+
+- Golang
+
+### Using docker
+
+Clone the repo, update the config to the required values
+
+`docker build -t cloudtrailparser .`
+
+`docker run -v ~/.aws:/root/.aws cloudtrailparser`
+
+#### Prerequisites
+
+- Docker
