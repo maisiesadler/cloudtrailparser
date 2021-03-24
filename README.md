@@ -15,6 +15,8 @@ Create a user with higher permissions than required
     - Effect: Allow
     Action:
       - 's3:*'
+    Resource:
+      - '*'
 ```
 
 Run the tool that needs to use the IAM role, for example a deployment.
@@ -31,6 +33,23 @@ It will generate something like the below that can then be used for the final IA
     Action:
       - 's3:CreateBucket'
       - 's3:DeleteBucket'
+    Resource:
+      - 's3bucket-7kde0nt3j5k8'
+      - 's3bucket-en53phzshjdr'
+```
+
+You can then update the resource, if required, for example
+
+```
+- PolicyName: ManageS3
+  PolicyDocument:
+    Statement:
+    - Effect: Allow
+    Action:
+      - 's3:CreateBucket'
+      - 's3:DeleteBucket'
+    Resource:
+      - 's3bucket-*'
 ```
 
 _Note: You may need to add the destructive/modify versions of actions so the stack can be reverted and updated_
