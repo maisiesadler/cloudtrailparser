@@ -33,6 +33,8 @@ It will generate something like the below that can then be used for the final IA
       - 's3:DeleteBucket'
 ```
 
+_Note: You may need to add the destructive/modify versions of actions so the stack can be reverted and updated_
+
 ## To run
 
 Set environment variables
@@ -42,6 +44,8 @@ Set environment variables
 | `USERNAME` | Username of IAM user |
 | `START_DATE` | Time to start looking from in the format `"2021-03-22 16:15:57 UTC+00:00"` |
 | `END_DATE` | Time to finish looking from in the format `"2021-03-22 16:15:57 UTC+00:00"` |
+
+_Ensure dates stay in the format `2021-03-22 16:15:57 UTC+00:00`_
 
 ### Using go
 

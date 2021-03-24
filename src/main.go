@@ -9,6 +9,11 @@ import (
 
 func main() {
 
+	createIam()	
+}
+
+func createIam() {
+
 	err, config := getConfig()
 	if err != nil {
 		fmt.Println(err)
@@ -22,6 +27,8 @@ func main() {
 	}
 
 	for k, v := range eventMap {
+		resources := getResources(v)	
+
 		serviceKey := strings.Split(k, ".")[0]
 		fmt.Printf("- PolicyName: Manage%v\n", strings.Title(serviceKey))
 		fmt.Println("  PolicyDocument:")
@@ -30,6 +37,11 @@ func main() {
 		fmt.Println("    Action:")
 		for vk, _ := range v {
 			fmt.Printf("      - '%v:%v'\n", serviceKey, vk)
+		}
+		fmt.Println("    Resource:")
+		for _, resource := range  resources {
+			fmt.Printf("      - '%v'\n", resource)
+
 		}
 	}	
 }

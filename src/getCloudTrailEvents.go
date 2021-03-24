@@ -18,7 +18,7 @@ type CloudTrailConfig struct {
 	EndTime string
 }
 
-func (config *CloudTrailConfig) GetCloudTrailEvents() (error, map[string]map[string]int) {
+func (config *CloudTrailConfig) GetCloudTrailEvents() (error, map[string]map[string][]*cloudtrail.Event) {
 	ct := config.connectCloudTrail()
 
 	err, startTime, endTime := config.parseTimes()
@@ -26,19 +26,19 @@ func (config *CloudTrailConfig) GetCloudTrailEvents() (error, map[string]map[str
 		return err, nil
 	}
 
-	eventMap := make(map[string]map[string]int)
+	eventMap := make(map[string]map[string][]*cloudtrail.Event)
 
 	events := config.getEvents(ct, startTime, endTime)
 
 	for v := range events {
 		if _, ok := eventMap[*v.EventSource]; !ok {
-			eventMap[*v.EventSource] = make(map[string]int)
+			eventMap[*v.EventSource] = make(map[string][]*cloudtrail.Event)
 		}
 		if _, ok := eventMap[*v.EventSource][*v.EventName]; !ok {
-			eventMap[*v.EventSource][*v.EventName] = 0
+			eventMap[*v.EventSource][*v.EventName] = []*cloudtrail.Event{}
 		}
 
-		eventMap[*v.EventSource][*v.EventName]++
+		eventMap[*v.EventSource][*v.EventName] = append(eventMap[*v.EventSource][*v.EventName], v)
 	}
 
 	return nil, eventMap
