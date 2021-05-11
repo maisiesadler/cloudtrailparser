@@ -21,7 +21,7 @@ Create a user with higher permissions than required
 
 Run the tool that needs to use the IAM role, for example a deployment.
 
-Wait until the Events are available in TeamCity, then run this tool.
+Wait until the Events are available in CloudTrail, then run this tool.
 
 It will generate something like the below that can then be used for the final IAM user.
 
